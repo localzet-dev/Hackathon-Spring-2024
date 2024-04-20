@@ -9,11 +9,11 @@
  */
 
 use app\model\Users;
+use localzet\WebAnalyzer;
 use support\Log;
 use support\Response;
 use Triangle\Engine\Exception\BusinessException;
 use Triangle\Engine\Http\Request;
-use Triangle\WebAnalyzer\Parser;
 
 /**
  * @param Request|null $request
@@ -186,7 +186,7 @@ function parse_session_data(Request $request = null, bool $forbiddenBot = false)
 {
     try {
         $request = $request ?? request();
-        $wb = new Parser($request->header());
+        $wb = new WebAnalyzer($request->header());
 
         if ($forbiddenBot && $wb->device->type == 'bot') {
             throw new BusinessException('Forbidden', 403);

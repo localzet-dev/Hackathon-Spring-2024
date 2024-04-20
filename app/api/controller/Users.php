@@ -31,23 +31,36 @@ class Users
 {
     /**
      * Список пользователей
+     * @api GET /api/users
+     *
      * @param Request $request
      * @return Response
      * @throws Throwable
-     * @api GET /api/users
      *
      */
     public function index(Request $request): Response
     {
-        return response(Model::all());
+        // Фильтрация по событиям
+        $eventId = $request->get('event_id');
+        if ($eventId) {
+            $event = \app\model\Events::find($eventId);
+            if ($event) {
+                return response($event->users);
+            } else {
+                throw new NotFoundException('Событие не найдено', 404);
+            }
+        } else {
+            return response(Model::all());
+        }
     }
 
     /**
      * Создание нового пользователя
+     * @api POST /api/users
+     *
      * @param Request $request
      * @return Response
      * @throws Throwable
-     * @api POST /api/users
      *
      */
     public function store(Request $request): Response
@@ -68,11 +81,12 @@ class Users
 
     /**
      * Отображение конкретного пользователя
+     * @api GET /api/users/{id}
+     *
      * @param Request $request
      * @param $id
      * @return Response
      * @throws Throwable
-     * @api GET /api/users/{id}
      *
      */
     public function show(Request $request, $id): Response
@@ -87,11 +101,12 @@ class Users
 
     /**
      * Обновление существующего пользователя
+     * @api PUT /api/users/{id}
+     *
      * @param Request $request
      * @param $id
      * @return Response
      * @throws Throwable
-     * @api PUT /api/users/{id}
      *
      */
     public function update(Request $request, $id): Response
@@ -111,11 +126,12 @@ class Users
 
     /**
      * Удаление существующего пользователя
+     * @api DELETE /api/users/{id}
+     *
      * @param Request $request
      * @param $id
      * @return Response
      * @throws Throwable
-     * @api DELETE /api/users/{id}
      *
      */
     public function destroy(Request $request, $id): Response
@@ -130,16 +146,5 @@ class Users
         } else {
             throw new NotFoundException('Пользователь не найден', 404);
         }
-    }
-
-    /**
-     * @param Request $request
-     * @return Response
-     * @throws Throwable
-     */
-    public function events(Request $request): Response
-    {
-        // TODO: Добавить обратную реляцию и собрать события пользователя
-        return response('Фича в разработке');
     }
 }

@@ -2,6 +2,7 @@
 
 namespace app\model;
 
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Triangle\Engine\Database\Model;
 
 /**
@@ -15,6 +16,8 @@ use Triangle\Engine\Database\Model;
  * @property string $status
  * @property mixed $date
  * @property mixed $is_public
+ *
+ * @property Users[] $users
  */
 class Events extends Model
 {
@@ -46,9 +49,13 @@ class Events extends Model
      */
     public $timestamps = false;
 
-    protected $fillable = ['title', 'description', 'address', 'is_online', 'status', 'date', 'is_public'];
+    protected $guarded = [];
+//    protected $fillable = ['title', 'description', 'address', 'is_online', 'status', 'date', 'is_public'];
 
-    public function users()
+    /**
+     * @return BelongsToMany
+     */
+    public function users(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
         return $this->belongsToMany(Users::class);
     }

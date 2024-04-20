@@ -33,6 +33,8 @@ use Triangle\Engine\Database\Model;
  * @property string $city
  * @property string $zip
  * @property integer $user_id
+ *
+ * @property Users $user
  */
 class Oauth extends Model
 {
@@ -64,7 +66,8 @@ class Oauth extends Model
      */
     public $timestamps = false;
 
-    protected $fillable = ["provider", "identifier", "websiteurl", "profileurl", "photourl", "displayname", "description", "firstname", "lastname", "middlename", "gender", "language", "age", "birthday", "birthmonth", "birthyear", "email", "emailverified", "phone", "address", "country", "region", "city", "zip"];
+    protected $guarded = [];
+//    protected $fillable = ["provider", "identifier", "websiteurl", "profileurl", "photourl", "displayname", "description", "firstname", "lastname", "middlename", "gender", "language", "age", "birthday", "birthmonth", "birthyear", "email", "emailverified", "phone", "address", "country", "region", "city", "zip"];
 
     /**
      * @return BelongsTo

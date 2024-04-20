@@ -17,6 +17,8 @@ use Triangle\Engine\Database\Model;
  * @property mixed $last_enter_date
  * @property mixed $is_admin
  * @property mixed $updated_at
+ *
+ * @property Events[] $events
  */
 class Users extends Model
 {
@@ -48,7 +50,9 @@ class Users extends Model
      */
     public $timestamps = true;
 
-    protected $fillable = ['email', 'firstname', 'lastname', 'middlename', 'last_enter_date', 'is_admin'];
+    protected $guarded = [];
+
+//    protected $fillable = ['email', 'firstname', 'lastname', 'middlename', 'last_enter_date', 'is_admin'];
 
     /**
      * @return HasMany
@@ -64,5 +68,10 @@ class Users extends Model
     public function events(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
         return $this->belongsToMany(Events::class);
+    }
+
+    protected static function booting()
+    {
+        parent::booting();
     }
 }

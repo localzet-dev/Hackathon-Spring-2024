@@ -32,7 +32,10 @@
     "illuminate/pagination": "^11.4",
     "illuminate/events": "^11.4",
     "symfony/var-dumper": "^7.0",
-    "localzet/webanalyzer": "^2.2"
+    "localzet/webanalyzer": "^2.2",
+    "fzaninotto/faker": "^1.5",
+    "localzet/cron": "^1.0",
+    "ext-curl": "*"
   },
   "suggest": {
     "ext-simplexml": "For XML Support",

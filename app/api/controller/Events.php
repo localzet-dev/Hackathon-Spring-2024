@@ -39,8 +39,22 @@ class Events
      */
     public function index(Request $request): Response
     {
-        // TODO: Сделать фильтрацию по пользователям
-        return response(Model::all());
+        $userId = $request->get('user_id');
+        $type = $request->get('type');
+        if ($userId) {
+            $user = \app\model\Users::find($userId);
+            if ($user) {
+                if ($type && $type == 'latest') {
+                    return response($user->events()->where(['status' => 'active'])->orderBy('date', 'desc')->first());
+                } else {
+                    return response($user->events);
+                }
+            } else {
+                throw new NotFoundException('Пользователь не найден', 404);
+            }
+        } else {
+            return response(Model::with('users')->get()->all());
+        }
     }
 
     /**
@@ -58,8 +72,34 @@ class Events
             throw new AuthorizationDeniedException('Только администратор может создавать события', 403);
         }
 
-        // TODO: Реализовать рандомную генерацию событий
-        return response('Фича в разработке');
+        // Получаем всех пользователей и перемешиваем их
+        $users = \app\model\Users::where(['status' => 'active', 'meeting_agree' => true])->get();
+        $users = $users->shuffle();
+
+        // Создаем события для каждой пары пользователей
+        for ($i = 0; $i < count($users) - 1; $i += 2) {
+            $data = [
+                'title' => 'Встреча',
+                'address' => 'Кофепоинт',
+                'is_online' => false,
+                'status' => 'pending',
+                'date' => date_create('+3 days'),
+                'is_public' => false,
+                'week' => (int)date('W', time())
+            ];
+
+            $event = Model::create($data);
+
+            // Назначаем событие для пары пользователей
+            $users[$i]->events()->attach($event->id);
+            $users[$i + 1]->events()->attach($event->id);
+
+            // Сбрасываем их мнения
+//            $users[$i]->update(['meeting_agree' => false]);
+//            $users[$i + 1]->update(['meeting_agree' => false]);
+        }
+
+        return response('События успешно созданы');
     }
 
     /**
@@ -76,7 +116,6 @@ class Events
     {
         $user = Model::find($id);
         if ($user) {
-            // TODO: Создать реляцию и добавить with для парсинга сотрудников
             return response($user);
         } else {
             throw new NotFoundException('Событие не найдено', 404);

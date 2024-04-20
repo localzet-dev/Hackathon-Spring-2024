@@ -54,11 +54,12 @@ class Auth
         if ($oauth->user) {
             $user = $oauth->user;
         } else {
-            $user = \app\model\Users::updateOrCreate(['email' => $oauth['email']], [
+            $user = \app\model\Users::firstOrCreate(['email' => $oauth['email']], [
                 'email' => $oauth['email'],
                 'firstname' => $oauth['firstname'],
                 'lastname' => $oauth['lastname'],
                 'middlename' => $oauth['middlename'],
+                'status' => 'pending'
             ]);
 
             $oauth->user()->associate($user);
@@ -68,7 +69,7 @@ class Auth
         session(['user_id' => $user->id]);
         parse_session_data($request);
 
-        return redirect_home();
+        return redirect_home('/my');
     }
 
     /**
