@@ -453,14 +453,16 @@ function config(string $key = null, mixed $default = null): mixed
     return Config::get($key, $default);
 }
 
-/**
- * @param string|null $key
- * @param mixed|null $default
- * @return mixed
- */
-function env(string $key = null, mixed $default = null): mixed
-{
-    return Environment::get($key, $default);
+if (!function_exists('env')) {
+    /**
+     * @param string|null $key
+     * @param mixed|null $default
+     * @return mixed
+     */
+    function env(string $key = null, mixed $default = null): mixed
+    {
+        return Environment::get($key, $default);
+    }
 }
 
 /**

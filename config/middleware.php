@@ -9,7 +9,6 @@
  */
 
 return [
-    '' => [
-
-    ]
+    '' => [\app\middleware\CORS::class],
+    'api' => [\app\api\middleware\AuthGuarder::class]
 ];

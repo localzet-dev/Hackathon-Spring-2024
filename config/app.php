@@ -28,6 +28,10 @@ return [
     'url' => env('APP_URL', 'http://localhost'),
     'asset_url' => env('ASSET_URL'),
 
+    'allowed_methods' => ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS', 'HEAD'],
+    'allowed_origins' => ['https://oggetto-coffee.localzet.com/', 'http://localhost:8000'],
+
+
     'headers' => [
         'Content-Language' => 'ru',
         'Access-Control-Allow-Origin' => '*',

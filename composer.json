@@ -26,7 +26,13 @@
   },
   "require": {
     "php": "^8.2",
-    "triangle/engine": "^5.3"
+    "triangle/engine": "^5.4",
+    "triangle/oauth": "^3.0",
+    "illuminate/database": "^11.4",
+    "illuminate/pagination": "^11.4",
+    "illuminate/events": "^11.4",
+    "symfony/var-dumper": "^7.0",
+    "localzet/webanalyzer": "^2.2"
   },
   "suggest": {
     "ext-simplexml": "For XML Support",
