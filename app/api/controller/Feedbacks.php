@@ -2,7 +2,7 @@
 
 namespace app\api\controller;
 
-use app\model\Feedbacks as Model;
+use app\model\Feedbacks as FeedbackModel;
 use support\Request;
 use support\Response;
 use Throwable;
@@ -10,23 +10,12 @@ use Triangle\Engine\Exception\AuthorizationDeniedException;
 use Triangle\Engine\Exception\NotFoundException;
 
 /**
- * Список фидбэков
- * @api GET /api/feedbacks
- *
- * Отображение конкретного фидбэка
- * @api GET /api/feedbacks/{id}
- *
- * Обновление существующего фидбэка
- * @api PUT /api/feedbacks/{id}
- *
- * Удаление существующего фидбэка
- * @api DELETE /api/feedbacks/{id}
- *
+ * Контроллер для работы с отзывами
  */
 class Feedbacks
 {
     /**
-     * Список фидбэков
+     * Получение списка отзывов
      * @param Request $request
      * @return Response
      * @throws Throwable
@@ -37,16 +26,17 @@ class Feedbacks
     public function index(Request $request): Response
     {
         if (!user() || !user('is_admin')) {
-            throw new AuthorizationDeniedException('Только администратор может просматривать все фидбэки', 403);
+            throw new AuthorizationDeniedException('Только администратор может просматривать все отзывы', 403);
         }
 
         $eventId = $request->get('event_id');
         $userId = $request->get('user_id');
-        $type = $request->get('type');
+        $feedbackType = $request->get('type');
+
         if ($userId) {
             $user = \app\model\Users::find($userId);
             if ($user) {
-                if ($type && $type == 'latest') {
+                if ($feedbackType && $feedbackType == 'latest') {
                     return response($user?->feedbacks()?->where(['event_id' => $eventId])?->orderBy('date', 'desc')?->first() ?? false);
                 } else {
                     return response($user->feedbacks()?->where(['event_id' => $eventId])?->get() ?? false);
@@ -55,12 +45,12 @@ class Feedbacks
                 throw new NotFoundException('Пользователь не найден', 404);
             }
         } else {
-            return response(Model::all());
+            return response(FeedbackModel::all());
         }
     }
 
     /**
-     * Отображение конкретного фидбэка
+     * Отображение конкретного отзыва
      * @param Request $request
      * @param $id
      * @return Response
@@ -72,19 +62,19 @@ class Feedbacks
     public function show(Request $request, $id): Response
     {
         if (!user() || !user('is_admin')) {
-            throw new AuthorizationDeniedException('Только администратор может просматривать фидбэки', 403);
+            throw new AuthorizationDeniedException('Только администратор может просматривать отзывы', 403);
         }
 
-        $user = Model::find($id);
-        if ($user) {
-            return response($user);
+        $feedback = FeedbackModel::find($id);
+        if ($feedback) {
+            return response($feedback);
         } else {
-            throw new NotFoundException('Фидбэк не найден', 404);
+            throw new NotFoundException('Отзыв не найден', 404);
         }
     }
 
     /**
-     * Обновление существующего фидбэка
+     * Обновление существующего отзыва
      * @param Request $request
      * @param $id
      * @return Response
@@ -96,20 +86,20 @@ class Feedbacks
     public function update(Request $request, $id): Response
     {
         if (!user() || !user('is_admin')) {
-            throw new AuthorizationDeniedException('Только администратор может редактировать фидбэки', 403);
+            throw new AuthorizationDeniedException('Только администратор может редактировать отзывы', 403);
         }
 
-        $user = Model::find($id);
-        if ($user) {
+        $feedback = FeedbackModel::find($id);
+        if ($feedback) {
             // TODO: Добавить ограничения полей
-            return response($user->update($request->all()));
+            return response($feedback->update($request->all()));
         } else {
-            throw new NotFoundException('Фидбэк не найден', 404);
+            throw new NotFoundException('Отзыв не найден', 404);
         }
     }
 
     /**
-     * Удаление существующего фидбэка
+     * Удаление существующего отзыва
      * @param Request $request
      * @param $id
      * @return Response
@@ -121,14 +111,14 @@ class Feedbacks
     public function destroy(Request $request, $id): Response
     {
         if (!user() || !user('is_admin')) {
-            throw new AuthorizationDeniedException('Только администратор может удалять фидбэки', 403);
+            throw new AuthorizationDeniedException('Только администратор может удалять отзывы', 403);
         }
 
-        $user = Model::find($id);
-        if ($user) {
-            return response($user->delete());
+        $feedback = FeedbackModel::find($id);
+        if ($feedback) {
+            return response($feedback->delete());
         } else {
-            throw new NotFoundException('Фидбэк не найден', 404);
+            throw new NotFoundException('Отзыв не найден', 404);
         }
     }
 }
