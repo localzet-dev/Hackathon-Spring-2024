@@ -10,3 +10,5 @@
   <img src="https://img.shields.io/github/license/localzet-dev/OggettoCoffee?label=%D0%9B%D0%B8%D1%86%D0%B5%D0%BD%D0%B7%D0%B8%D1%8F" alt="Лицензия">
 </a>
 </p>
+
+### [Документация по API](https://cdn.localzet.com/assets/media/logos/LocalzetGroup.png)
