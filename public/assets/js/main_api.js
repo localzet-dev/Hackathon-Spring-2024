@@ -262,28 +262,28 @@ function api_main_user_events_get_last_(){
 
 function api_main_user_events_get_list(){
     var form = new FormData();
-    axios.get('https://oggetto-coffee.localzet.com/api/user/events', form)
+    axios.get('https://oggetto-coffee.localzet.com/api/user/events?type=latest', form)
         .then(function (response) {
             var events = response.data['data'];
             if (events.length !== 0){
-                bb = '';
-                events.forEach(ev => {
-                    if (ev['description'] == null){
-                        ev['description'] = '';
-                    }
-                    bb = bb + `
-                    <div class="alert alert-custom alert-indicator-top indicator-success" role="alert">
-                        <div class="alert-content">
-                            <span class="alert-title">`+ev['title']+`</span>
-                            <span class="alert-text">`+ev['description']+`</span>
-                        </div>
+                if (ev['description'] == null){
+                    ev['description'] = '';
+                }
+                bb = `
+                <div class="alert alert-custom alert-indicator-top indicator-success" role="alert">
+                    <div class="alert-content">
+                        <span class="alert-title">`+ev['title']+`</span>
+                        <span class="alert-text">`+ev['description']+`</span>
                     </div>
-                        `;
-                    });
-                    document.getElementById('events_block').innerHTML = bb;
-            }
+                </div>
+                    `;
+                
+            }else{
+                var bb = `
 
-            
+                `;
+            }
+            document.getElementById('events_block').innerHTML = bb;
     }).catch(function (error) {
         console.log(error);
         api_alert_error();
@@ -576,7 +576,10 @@ function api_main_user_events_his_get_list(){
                                                 `+ev['description']+`
                                                 </span>
                                                 <span class="widget-popular-blog-text">
-                                                Дата встречи: `+ev['date']+`
+                                                    Дата встречи: `+ev['date']+`
+                                                </span>
+                                                <span class="widget-popular-blog-text">
+                                                    Номер недели: `+ev['week']+`
                                                 </span>
                                             </div>
                                         </div>
