@@ -92,7 +92,7 @@ class Feedbacks
         $feedback = FeedbackModel::find($id);
         if ($feedback) {
             // TODO: Добавить ограничения полей
-            return response($feedback->update($request->all()));
+            return response($feedback->update($request->post()));
         } else {
             throw new NotFoundException('Отзыв не найден', 404);
         }

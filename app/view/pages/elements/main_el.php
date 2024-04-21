@@ -11,7 +11,8 @@ function pages_main_element_headcode()
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		
 		<link rel="manifest" href="https://oggetto-coffee.localzet.com/manifest.json">
-		
+        <link rel="icon" type="image/png" href="https://oggetto.team/frontend/assets/favicons/favicon-32x32.png?v=2" />
+				
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 		<link rel="preconnect" href="https://assets.exesfull.com">
@@ -41,8 +42,11 @@ function pages_main_element_headcode()
               });
             }
         </script>
+        <!-- Pixel Code for https://analytics.localzet.com/ -->
+        <script defer src="https://analytics.localzet.com/pixel/dzti5JmsIej9AjXx"></script>
+        <!-- END Pixel Code -->
 		
-		<link rel="icon" type="image/png" href="https://oggetto.team/frontend/assets/favicons/favicon-32x32.png?v=2" />';
+';
 
 	return $file;
 }

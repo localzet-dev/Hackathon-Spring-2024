@@ -39,8 +39,8 @@ class User
         $userData = [];
 
         foreach ($fillableFields as $field) {
-            if ($request->input($field)) {
-                $userData[$field] = $request->input($field, user($field));
+            if ($request->post($field)) {
+                $userData[$field] = $request->post($field, user($field));
             }
         }
         $updateResponse = user()->update($userData);
@@ -83,12 +83,17 @@ class User
      * @api PUT /api/user/events/{id}
      *
      */
-    public function events_update(Request $request, $id): Response
+    public function events_update(Request $request, $id = null): Response
     {
-        $event = user()->events()->find($id);
+        if ($id) {
+            $event = user()->events()->find($id);
+        } else {
+            $event = user()->events()->where('week', '>=', (int)date('W', time()))->orderBy('date', 'desc')->first();
+        }
+
         if ($event) {
             // TODO: Добавить ограничения полей
-            return response($event->update($request->all()));
+            return response($event->update($request->post()));
         } else {
             throw new NotFoundException('Событие не найдено', 404);
         }
@@ -130,7 +135,7 @@ class User
         $feedback = user()->feedbacks()->find($id);
         if ($feedback) {
             // TODO: Добавить ограничения полей
-            return response($feedback->update($request->all()));
+            return response($feedback->update($request->post()));
         } else {
             throw new NotFoundException('Отзыв не найден', 404);
         }

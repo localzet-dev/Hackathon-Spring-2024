@@ -74,6 +74,7 @@ Router::group('/api', function () {
     Router::put('/user', [\app\api\controller\User::class, 'update']);
 
     Router::get('/user/events', [\app\api\controller\User::class, 'events_index']);
+    Router::put('/user/events', [\app\api\controller\User::class, 'events_update']);
     Router::put('/user/events/{id}', [\app\api\controller\User::class, 'events_update']);
 
     Router::get('/user/feedbacks', [\app\api\controller\User::class, 'feedbacks_index']);

@@ -73,7 +73,7 @@ class Users
             throw new AuthorizationDeniedException('Только администратор может создавать пользователей', 403);
         }
 
-        $data = $request->all();
+        $data = $request->post();
         $user = Model::firstWhere(['email' => $data['email']]);
         if ($user) {
             throw new InvalidInputException('Пользователь с такой почтой уже существует', 400);
@@ -122,7 +122,7 @@ class Users
         $user = Model::find($id);
         if ($user) {
             // TODO: Добавить ограничения полей
-            return response($user->update($request->all()));
+            return response($user->update($request->post()));
         } else {
             throw new NotFoundException('Пользователь не найден', 404);
         }

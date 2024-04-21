@@ -153,7 +153,7 @@ class Events
         $user = Model::find($id);
         if ($user) {
             // TODO: Добавить ограничения полей
-            return response($user->update($request->all()));
+            return response($user->update($request->post()));
         } else {
             throw new NotFoundException('Событие не найдено', 404);
         }
