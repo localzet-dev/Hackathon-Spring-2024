@@ -8,14 +8,7 @@ use Throwable;
 use Triangle\Engine\Exception\NotFoundException;
 
 /**
- * Отображение текущего пользователя
- * @api GET /api/user
- *
- * Обновление текущего пользователя
- * @api PUT /api/user
- *
- * События текущего пользователя
- * @api GET /api/user/events
+ * Контроллер для работы с текущим пользователем
  */
 class User
 {
@@ -42,34 +35,34 @@ class User
      */
     public function update(Request $request): Response
     {
-        $fillable = ['middlename', 'sex', 'birthdate', 'about', 'meeting_agree'];
-        $data = [];
+        $fillableFields = ['middlename', 'sex', 'birthdate', 'about', 'meeting_agree'];
+        $userData = [];
 
-        foreach ($fillable as $field) {
+        foreach ($fillableFields as $field) {
             if ($request->input($field)) {
-                $data[$field] = $request->input($field, user($field));
+                $userData[$field] = $request->input($field, user($field));
             }
         }
-        $resp = user()->update($data);
+        $updateResponse = user()->update($userData);
         user()->save();
 
-        return response($resp);
+        return response($updateResponse);
     }
 
     /**
-     * Создание нового события
+     * Получение событий текущего пользователя
      * @param Request $request
      * @return Response
      * @throws Throwable
      *
-     * @api POST /api/user/events
+     * @api GET /api/user/events
      *
      */
     public function events_index(Request $request): Response
     {
-        $type = $request->get('type');
+        $eventType = $request->get('type');
 
-        if ($type && $type == 'latest') {
+        if ($eventType && $eventType == 'latest') {
             return response(user()->events()->with(['users' => function ($query) {
                 $query->withTrashed();
             }])->where('week', '>=', (int)date('W', time()))->orderBy('date', 'desc')->first() ?? false);
@@ -81,7 +74,7 @@ class User
     }
 
     /**
-     * Обновление существующего события
+     * Обновление события текущего пользователя
      * @param Request $request
      * @param $id
      * @return Response
@@ -102,7 +95,7 @@ class User
     }
 
     /**
-     * Список фидбэков
+     * Получение отзывов текущего пользователя
      * @param Request $request
      * @return Response
      * @throws Throwable
@@ -113,9 +106,9 @@ class User
     public function feedbacks_index(Request $request): Response
     {
         $eventId = $request->get('event_id');
-        $type = $request->get('type');
+        $feedbackType = $request->get('type');
 
-        if ($type && $type == 'latest') {
+        if ($feedbackType && $feedbackType == 'latest') {
             return response(user()->feedbacks()?->where(['event_id' => $eventId])?->orderBy('date', 'desc')?->first() ?? false);
         } else {
             return response(user()->feedbacks()?->where(['event_id' => $eventId])?->get() ?? false);
@@ -123,7 +116,7 @@ class User
     }
 
     /**
-     * Обновление существующего фидбэка
+     * Обновление отзыва текущего пользователя
      * @param Request $request
      * @param $id
      * @return Response
@@ -139,7 +132,7 @@ class User
             // TODO: Добавить ограничения полей
             return response($feedback->update($request->all()));
         } else {
-            throw new NotFoundException('Фидбэк не найден', 404);
+            throw new NotFoundException('Отзыв не найден', 404);
         }
     }
 }
