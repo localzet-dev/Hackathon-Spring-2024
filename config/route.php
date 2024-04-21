@@ -16,27 +16,38 @@ Router::disableDefaultRoute();
 Router::any('/profile', function () {
     include_once view_path('pages/main_pages.php');
     return mainpages_profile();
-});
+})->middleware([
+    \app\api\middleware\AuthGuarder::class
+]);
 
 Router::any('/', function () {
     include_once view_path('pages/main_pages.php');
-    return error_404();
-});
+    return redirect('https://oggetto-coffee.localzet.com/my');
+    //return error_404();
+})->middleware([
+    \app\api\middleware\AuthGuarder::class
+]);
 
 Router::any('/admin_users', function () {
     include_once view_path('pages/main_pages.php');
     return mainpages_admin_users();
-});
+})->middleware([
+    \app\api\middleware\AuthGuarder::class
+]);
 
 Router::any('/events', function () {
     include_once view_path('pages/main_pages.php');
     return mainpages_history_events();
-});
+})->middleware([
+    \app\api\middleware\AuthGuarder::class
+]);
 
 Router::any('/admin_users/{id}', function ($request, $id) {
     include_once view_path('pages/main_pages.php');
     return mainpages_admin_users_byid($id);
-});
+})->middleware([
+    \app\api\middleware\AuthGuarder::class
+]);
 
 Router::fallback(function () { 
     include_once view_path('pages/main_pages.php');
@@ -46,12 +57,9 @@ Router::fallback(function () {
 Router::any('/my', function () {
     include_once view_path('pages/main_pages.php');
     return mainpages_dashboard();
-});
-
-Router::get('/tw', function () {
-    return raw_view('pages/main_pages', ['name' => 'qwertyuiop[poiuytrewq']);
-//    return mainpages_landing();
-});
+})->middleware([
+    \app\api\middleware\AuthGuarder::class
+]);
 
 Router::group('/auth', function () {
     Router::get('', [\app\controller\Auth::class, 'index']);
