@@ -66,13 +66,19 @@ class User
      */
     public function events(Request $request): Response
     {
-        $user = user();
         $type = $request->get('type');
+        
+        $user = user();
+
         if ($user) {
             if ($type && $type == 'latest') {
-                return response($user?->events()?->with('users')?->where('week', '>=', (int)date('W', time()))?->orderBy('date', 'desc')?->first() ?? false);
+                return response($user->events()->with(['users' => function ($query) {
+                    $query->withTrashed();
+                }])->where('week', '>=', (int)date('W', time()))->orderBy('date', 'desc')->first() ?? false);
             } else {
-                return response($user->events()?->with('users')?->get() ?? false);
+                return response($user->events()->with(['users' => function ($query) {
+                    $query->withTrashed();
+                }])->get() ?? false);
             }
         } else {
             throw new NotFoundException('Пользователь не найден', 404);

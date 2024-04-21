@@ -13,7 +13,7 @@ use Triangle\Engine\Exception\NotFoundException;
  * Список событий
  * @api GET /api/events
  *
- * Создание нового события
+ * Создание новых событий
  * @api POST /api/events
  *
  * Отображение конкретного события
@@ -39,21 +39,29 @@ class Events
      */
     public function index(Request $request): Response
     {
+        if (!user() || !user('is_admin')) {
+            throw new AuthorizationDeniedException('Только администратор может просматривать все события', 403);
+        }
+
         $userId = $request->get('user_id');
         $type = $request->get('type');
         if ($userId) {
             $user = \app\model\Users::find($userId);
             if ($user) {
                 if ($type && $type == 'latest') {
-                    return response($user->events()->where(['status' => 'active'])->orderBy('date', 'desc')->first());
+                    return response($user->events()->with(['users' => function ($query) {
+                        $query->withTrashed();
+                    }])->where('week', '>=', (int)date('W', time()))->orderBy('date', 'desc')->first() ?? false);
                 } else {
-                    return response($user->events);
+                    return response($user->events()->with(['users' => function ($query) {
+                        $query->withTrashed();
+                    }])->get() ?? false);
                 }
             } else {
                 throw new NotFoundException('Пользователь не найден', 404);
             }
         } else {
-            return response(Model::with('users')->get()->all());
+            return response(Model::all());
         }
     }
 
@@ -114,6 +122,10 @@ class Events
      */
     public function show(Request $request, $id): Response
     {
+        if (!user() || !user('is_admin')) {
+            throw new AuthorizationDeniedException('Только администратор может просматривать события', 403);
+        }
+
         $user = Model::find($id);
         if ($user) {
             return response($user);
@@ -134,6 +146,10 @@ class Events
      */
     public function update(Request $request, $id): Response
     {
+        if (!user() || !user('is_admin')) {
+            throw new AuthorizationDeniedException('Только администратор может редактировать события', 403);
+        }
+
         $user = Model::find($id);
         if ($user) {
             // TODO: Добавить ограничения полей

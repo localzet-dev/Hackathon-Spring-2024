@@ -40,12 +40,16 @@ class Users
      */
     public function index(Request $request): Response
     {
+        if (!user() || !user('is_admin')) {
+            throw new AuthorizationDeniedException('Только администратор может просматривать всех пользователей', 403);
+        }
+
         // Фильтрация по событиям
         $eventId = $request->get('event_id');
         if ($eventId) {
             $event = \app\model\Events::find($eventId);
             if ($event) {
-                return response($event->users);
+                return response($event->users ?? false);
             } else {
                 throw new NotFoundException('Событие не найдено', 404);
             }
