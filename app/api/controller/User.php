@@ -109,9 +109,9 @@ class User
         $feedbackType = $request->get('type');
 
         if ($feedbackType && $feedbackType == 'latest') {
-            return response(user()->feedbacks()?->where(['event_id' => $eventId])?->orderBy('date', 'desc')?->first() ?? false);
+            return response(user()->feedbacks()?->where(['events_id' => $eventId])?->orderBy('date', 'desc')?->first() ?? false);
         } else {
-            return response(user()->feedbacks()?->where(['event_id' => $eventId])?->get() ?? false);
+            return response(user()->feedbacks()?->where(['events_id' => $eventId])?->get() ?? false);
         }
     }
 

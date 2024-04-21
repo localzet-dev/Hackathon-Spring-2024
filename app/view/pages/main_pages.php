@@ -10,7 +10,7 @@ function error_404(){
     <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
       <title>Oggeto</title>
-      <link rel="icon" type="image/x-icon" href="https://oggetto-coffee.localzet.com/favicon.png">
+      <link rel="icon" type="image/png" href="https://oggetto-coffee.localzet.com/favicon.png">
       
       '.pages_main_styles_css().'
 
@@ -482,7 +482,7 @@ $file = '<!DOCTYPE html>
 <html lang="ru">
 <head>
 	'.pages_main_element_headcode().'
-	<title>История встречь</title>
+	<title>История встреч</title>
 </head>
 <body>
 	<div class="app align-content-stretch d-flex flex-wrap">

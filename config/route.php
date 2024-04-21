@@ -24,9 +24,7 @@ Router::any('/', function () {
     include_once view_path('pages/main_pages.php');
     return redirect('https://oggetto-coffee.localzet.com/my');
     //return error_404();
-})->middleware([
-    \app\api\middleware\AuthGuarder::class
-]);
+});
 
 Router::any('/admin_users', function () {
     include_once view_path('pages/main_pages.php');
@@ -74,10 +72,12 @@ Router::group('/api', function () {
 
     Router::get('/user', [\app\api\controller\User::class, 'show']);
     Router::put('/user', [\app\api\controller\User::class, 'update']);
+
     Router::get('/user/events', [\app\api\controller\User::class, 'events_index']);
-    Router::put('/user/events', [\app\api\controller\User::class, 'events_update']);
+    Router::put('/user/events/{id}', [\app\api\controller\User::class, 'events_update']);
+
     Router::get('/user/feedbacks', [\app\api\controller\User::class, 'feedbacks_index']);
-    Router::put('/user/feedbacks', [\app\api\controller\User::class, 'feedbacks_update']);
+    Router::put('/user/feedbacks/{id}', [\app\api\controller\User::class, 'feedbacks_update']);
 
 })->middleware([
     \app\api\middleware\AuthGuarder::class

@@ -37,9 +37,9 @@ class Feedbacks
             $user = \app\model\Users::find($userId);
             if ($user) {
                 if ($feedbackType && $feedbackType == 'latest') {
-                    return response($user?->feedbacks()?->where(['event_id' => $eventId])?->orderBy('date', 'desc')?->first() ?? false);
+                    return response($user?->feedbacks()?->where(['events_id' => $eventId])?->orderBy('date', 'desc')?->first() ?? false);
                 } else {
-                    return response($user->feedbacks()?->where(['event_id' => $eventId])?->get() ?? false);
+                    return response($user->feedbacks()?->where(['events_id' => $eventId])?->get() ?? false);
                 }
             } else {
                 throw new NotFoundException('Пользователь не найден', 404);

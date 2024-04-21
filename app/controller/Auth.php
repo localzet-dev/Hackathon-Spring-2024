@@ -35,8 +35,8 @@ class Auth
                     'enabled' => true,
                     'callback' => 'https://oggetto-coffee.localzet.com/auth/google',
                     'keys' => [
-                        'id' => '578559583790-4dv22kseh0nh3kquk6kkg4lq2k567q5c.apps.googleusercontent.com',
-                        'secret' => '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',
+                        'id' => env('GOOGLE_ID'),
+                        'secret' => env('GOOGLE_SECRET'),
                     ],
                 ],
             ]
@@ -53,12 +53,19 @@ class Auth
 
         if ($oauth->user) {
             $user = $oauth->user;
+            $user->update(['email' => $oauth['email'],
+                'firstname' => $oauth['firstname'],
+                'lastname' => $oauth['lastname'],
+                'middlename' => $oauth['middlename'],
+                'img_url' => $oauth['photourl']]);
+
         } else {
             $user = \app\model\Users::firstOrCreate(['email' => $oauth['email']], [
                 'email' => $oauth['email'],
                 'firstname' => $oauth['firstname'],
                 'lastname' => $oauth['lastname'],
                 'middlename' => $oauth['middlename'],
+                'img_url' => $oauth['photourl'],
                 'status' => 'pending'
             ]);
 

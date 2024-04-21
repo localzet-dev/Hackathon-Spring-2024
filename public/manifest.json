@@ -1,0 +1,21 @@
+{
+  "name": "Oggetto Coffee",
+  "short_name": "OggettoCoffee",
+  "service-worker": "/sw.js",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "description": "Oggetto Coffee",
+  "icons": [
+    {
+      "src": "oggetto-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "oggetto-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

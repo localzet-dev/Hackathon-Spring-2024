@@ -5,10 +5,17 @@
 function pages_main_element_headcode()
 {
 	$file = '
-    <meta charset="utf-8">
+        <base href=""/>
+        <meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<link rel="preconnect" href="https://fonts.gstatic.com">
+		
+		<link rel="manifest" href="https://oggetto-coffee.localzet.com/manifest.json">
+		
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link rel="preconnect" href="https://assets.exesfull.com">
+		
 		<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 		<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;300;400;500;600;700;800&display=swap" rel="stylesheet">
 		<link href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp" rel="stylesheet">
@@ -20,6 +27,20 @@ function pages_main_element_headcode()
 		<link href="https://assets.exesfull.com/exesfull/themes/lagoon/css/main.css" rel="stylesheet">
 		<link href="https://assets.exesfull.com/exesfull/themes/lagoon/css/custom.css" rel="stylesheet">
     	<link href="https://assets.exesfull.com/exesfull/themes/lagoon/plugins/dropzone/min/dropzone.min.css" rel="stylesheet">
+    	
+    	<script>
+            if (\'serviceWorker\' in navigator) {
+              window.addEventListener(\'load\', function() {
+                navigator.serviceWorker.register(\'/sw.js\').then(function(registration) {
+                  // Регистрация успешна
+                  console.log(\'ServiceWorker registration successful with scope: \', registration.scope);
+                }, function(err) {
+                  // регистрация не удалась :(
+                  console.log(\'ServiceWorker registration failed: \', err);
+                });
+              });
+            }
+        </script>
 		
 		<link rel="icon" type="image/png" href="https://oggetto.team/frontend/assets/favicons/favicon-32x32.png?v=2" />';
 
@@ -56,7 +77,7 @@ function pages_main_element_head()
       <div class="row" >
       <a style="text-decoration: none;" href="https://my.e.donstu.ru/t/dormitory/" class="form-control col">Главная</a>
       <a style="text-decoration: none;" href="https://donstu.ru/" class="form-control col">ДГТУ</a>
-      <a style="text-decoration: none;" href="https://my.e.donstu.ru/t/dormitory/system/auth/logout/" class="form-control col">Выйти</a>
+      <a style="text-decoration: none;" href="/auth/logout/" class="form-control col">Выйти</a>
       </div>
     </form>
     <a href="#" class="toggle-search"><i class="material-icons">close</i></a>
