@@ -11,4 +11,4 @@
 </a>
 </p>
 
-### [Документация по API](https://cdn.localzet.com/assets/media/logos/LocalzetGroup.png)
+### [Документация по API](https://documenter.getpostman.com/view/16712285/2sA3BoaBaD)
