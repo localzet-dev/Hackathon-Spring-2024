@@ -4,6 +4,7 @@ namespace app\model;
 
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Triangle\Engine\Database\Model;
 
 /**
@@ -22,6 +23,9 @@ use Triangle\Engine\Database\Model;
  */
 class Users extends Model
 {
+
+    use SoftDeletes;
+
     /**
      * Соединение для модели
      *
@@ -52,20 +56,26 @@ class Users extends Model
 
     protected $guarded = [];
 
-//    protected $fillable = ['email', 'firstname', 'lastname', 'middlename', 'last_enter_date', 'is_admin'];
-
     /**
      * @return HasMany
      */
-    public function oauths(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function oauths(): HasMany
     {
         return $this->hasMany(Oauth::class);
     }
 
     /**
+     * @return HasMany
+     */
+    public function feedbacks(): HasMany
+    {
+        return $this->hasMany(Feedbacks::class);
+    }
+
+    /**
      * @return BelongsToMany
      */
-    public function events(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    public function events(): BelongsToMany
     {
         return $this->belongsToMany(Events::class);
     }

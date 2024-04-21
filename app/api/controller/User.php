@@ -78,4 +78,22 @@ class User
             throw new NotFoundException('Пользователь не найден', 404);
         }
     }
+
+    public function feedbacks(Request $request): Response
+    {
+        $eventId = $request->get('event_id');
+        $type = $request->get('type');
+
+        $user = user();
+
+        if ($user) {
+            if ($type && $type == 'latest') {
+                return response($user?->feedbacks()?->where(['event_id' => $eventId])?->orderBy('date', 'desc')?->first() ?? false);
+            } else {
+                return response($user->feedbacks()?->where(['event_id' => $eventId])?->get() ?? false);
+            }
+        } else {
+            throw new NotFoundException('Пользователь не найден', 404);
+        }
+    }
 }

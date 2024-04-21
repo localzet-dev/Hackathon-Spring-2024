@@ -3,10 +3,12 @@
 namespace app\model;
 
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Triangle\Engine\Database\Model;
 
 /**
- * events 
+ * events
  * @property integer $id
  * @property mixed $created_at
  * @property string $title
@@ -21,13 +23,15 @@ use Triangle\Engine\Database\Model;
  */
 class Events extends Model
 {
+    use SoftDeletes;
+
     /**
      * Соединение для модели
      *
      * @var string|null
      */
     protected $connection = 'pgsql';
-    
+
     /**
      * Таблица, связанная с моделью.
      *
@@ -50,7 +54,8 @@ class Events extends Model
     public $timestamps = false;
 
     protected $guarded = [];
-//    protected $fillable = ['title', 'description', 'address', 'is_online', 'status', 'date', 'is_public'];
+
+    protected $with = ['users'];
 
     /**
      * @return BelongsToMany
@@ -58,5 +63,13 @@ class Events extends Model
     public function users(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
         return $this->belongsToMany(Users::class);
+    }
+
+    /**
+     * @return HasMany
+     */
+    public function feedbacks(): HasMany
+    {
+        return $this->hasMany(Feedbacks::class);
     }
 }

@@ -21,7 +21,7 @@ function pages_main_element_headcode()
 		<link href="https://assets.exesfull.com/exesfull/themes/lagoon/css/custom.css" rel="stylesheet">
     	<link href="https://assets.exesfull.com/exesfull/themes/lagoon/plugins/dropzone/min/dropzone.min.css" rel="stylesheet">
 		
-		<link rel="icon" type="image/png" href="https://oggetto-coffee.localzet.com/favion.png" />';
+		<link rel="icon" type="image/png" href="https://oggetto.team/frontend/assets/favicons/favicon-32x32.png?v=2" />';
 
 	return $file;
 }
@@ -43,7 +43,8 @@ function pages_main_element_footercode()
 		<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 		<script src="https://assets.exesfull.com/js/s2a.js"></script>
 		<script src="https://assets.exesfull.com/exesfull/themes/lagoon/js/pages/settings.js"></script>
-		<script src="https://my.e.donstu.ru/t/assets/js/service.js"></script>';
+		<script src="https://oggetto-coffee.localzet.com/assets/js/main_api.js"></script>
+        <script>api_main_start();</script>';
 	return $file;
 }
 
@@ -88,40 +89,16 @@ function pages_main_element_head()
 
 function pages_main_element_menu()
 {
-	$admin = '';
-	/*
-	if ($GLOBALS['user']['is_admin'] == 'true') {
-		$statusTitle = 'Сотрудник';
-	} else {
-		$statusTitle = 'Студент';
-	}
-
-	if ($GLOBALS['user']['is_admin'] == 'true') {
-		$admin = '
-      <li class="sidebar-title">
-        Управление
-      </li>
-      <li class="nav-item">
-          <a class="nav-link" aria-current="page" href="' . Url::$path . '/admin/">
-          <i class="material-icons">admin_panel_settings</i>
-              <span class="item-name">Администрация</span>
-          </a>
-		  <script src="' . Url::$path . '/assets/jsAPI/admin.js"></script>
-      </li>';
-	} else {
-		$admin = '';
-	}
-	*/
 
 	$file = '
     <div class="app-sidebar">
 				<div class="logo">
-					<a style="width:50px;height:50px;border-radius: unset; background: url(https://oggetto-coffee.localzet.com/favion.png) no-repeat;background-size: 90%;" class="logo-icon"><span style="white-space: nowrap;" class="logo-text">Контролируем цены вместе</span></a>
+					<a style="width:50px;height:50px;border-radius: unset; background: url(https://oggetto.team/frontend/assets/favicons/favicon-32x32.png?v=2) no-repeat;background-size: 90%;" class="logo-icon"><span style="white-space: nowrap;" class="logo-text">Oggetto</span></a>
 					<div class="sidebar-user-switcher user-activity-online">
 						<a href="#">
-							<img src="_user_img_url">
+							<img id="ui_main_user_img_url" src="">
 							<span class="activity-indicator"></span>
-							<span class="user-info-text">_user_first_name<br><span class="user-state-info">_user_role</span></span>
+							<span class="user-info-text" id="ui_main_user_first_name"></span>
 						</a>
 					</div>
 				</div>
@@ -129,13 +106,13 @@ function pages_main_element_menu()
 				<div class="app-menu">
 					<ul class="accordion-menu" id="menu_mod">
 						<li class="sidebar-title">
-              Основное
+              				Основное
 						</li>
-						<li><a href="https://oggetto-coffee.localzet.com/"><i class="material-icons">dashboard</i>Главная</a></li>			
-						<li><a href="https://oggetto-coffee.localzet.com/profile/"><i class="material-icons">person</i>Профиль</a></li>
-						<li><a href="https://oggetto-coffee.localzet.com/api/auth/api.php?api=api_auth_logout"><i class="material-icons">logout</i>Выйти</a></li>
-						' . $admin . '
-						<li></li>
+						<li><a href="https://oggetto-coffee.localzet.com/my"><i class="material-icons">dashboard</i>Главная</a></li>
+                        <li><a href="https://oggetto-coffee.localzet.com/events"><i class="material-icons">history</i>Мои встречи</a></li>			
+						<li><a href="https://oggetto-coffee.localzet.com/profile"><i class="material-icons">person</i>Профиль</a></li>
+						<li><a href="https://oggetto-coffee.localzet.com/auth/logout"><i class="material-icons">logout</i>Выйти</a></li>
+						
 					</ul>
 				</div>
 			</div>';
@@ -147,7 +124,7 @@ function pages_main_element_share_menu()
 	$file = '
     <div class="app-sidebar">
 				<div class="logo">
-					<a style="border-radius: unset; background: url(https://tu.exesfull.com/favicon.ico) no-repeat;background-size: 90%;" class="logo-icon"><span style="white-space: nowrap;" class="logo-text">T-Plato</span></a>
+					<a style="border-radius: unset; background: url(https://oggetto-coffee.localzet.com/favicon.png) no-repeat;background-size: 90%;" class="logo-icon"><span style="white-space: nowrap;" class="logo-text">T-Plato</span></a>
 				</div>
         
 				<div class="app-menu">

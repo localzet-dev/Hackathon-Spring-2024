@@ -13,9 +13,39 @@ use Triangle\Engine\Router;
 
 Router::disableDefaultRoute();
 
+Router::any('/profile', function () {
+    include_once view_path('pages/main_pages.php');
+    return mainpages_profile();
+});
+
 Router::any('/', function () {
     include_once view_path('pages/main_pages.php');
-    return mainpages_landing();
+    return error_404();
+});
+
+Router::any('/admin_users', function () {
+    include_once view_path('pages/main_pages.php');
+    return mainpages_admin_users();
+});
+
+Router::any('/events', function () {
+    include_once view_path('pages/main_pages.php');
+    return mainpages_history_events();
+});
+
+Router::any('/admin_users/{id}', function ($request, $id) {
+    include_once view_path('pages/main_pages.php');
+    return mainpages_admin_users_byid($id);
+});
+
+Router::fallback(function () { 
+    include_once view_path('pages/main_pages.php');
+    return error_404();
+});
+
+Router::any('/my', function () {
+    include_once view_path('pages/main_pages.php');
+    return mainpages_dashboard();
 });
 
 Router::get('/tw', function () {

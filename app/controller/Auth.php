@@ -66,6 +66,9 @@ class Auth
             $oauth->save();
         }
 
+        $user->update(['last_enter_date' => date('c')]);
+        $user->save();
+
         session(['user_id' => $user->id]);
         parse_session_data($request);
 
