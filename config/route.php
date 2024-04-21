@@ -21,8 +21,9 @@ Router::any('/profile', function () {
 ]);
 
 Router::any('/', function () {
-    include_once view_path('pages/main_pages.php');
-    return redirect('https://oggetto-coffee.localzet.com/my');
+    return new \support\Response(200, [], file_get_contents(public_path('index.html')));
+//    include_once view_path('pages/main_pages.php');
+//    return redirect('https://oggetto-coffee.localzet.com/my');
     //return error_404();
 });
 
