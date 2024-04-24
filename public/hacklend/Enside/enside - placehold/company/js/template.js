@@ -161,58 +161,58 @@ $(document).ready(function() {
 
 	// Add CSS styles to shortcodes
 	$('.mgt-cta-block').each(function( index ) {
-		$(this).attr('style', ($(this).attr('data-style')));
+		$(this).attr('style', ($(this).attr('style')));
 	});
 	$('.portfolio-item-image').each(function( index ) {
-		$(this).attr('style', ($(this).attr('data-style')));
+		$(this).attr('style', ($(this).attr('style')));
 	});
 	$('.mgt-post-image').each(function( index ) {
-		$(this).attr('style', ($(this).attr('data-style')));
+		$(this).attr('style', ($(this).attr('style')));
 	});
 	$('.mgt-signup-block').each(function( index ) {
-		$(this).attr('style', ($(this).attr('data-style')));
+		$(this).attr('style', ($(this).attr('style')));
 	});
 	$('.vc_row').each(function( index ) {
-		$(this).attr('style', ($(this).attr('data-style')));
+		$(this).attr('style', ($(this).attr('style')));
 	});
 	$('.fullwidth-background').each(function( index ) {
-		$(this).attr('style', ($(this).attr('data-style')));
+		$(this).attr('style', ($(this).attr('style')));
 	});
 	$('.content-block').each(function( index ) {
-		$(this).attr('style', ($(this).attr('data-style')));
+		$(this).attr('style', ($(this).attr('style')));
 	});
 	$('.mgt-menu-bg-image').each(function( index ) {
-		$(this).attr('style', ($(this).attr('data-style')));
+		$(this).attr('style', ($(this).attr('style')));
 	});
 	$('.mgt-promo-block').each(function( index ) {
-        $(this).attr('style', ($(this).attr('data-style')));
+        $(this).attr('style', ($(this).attr('style')));
     });
     $('.content-block .container-bg').each(function( index ) {
-		$(this).attr('style', ($(this).attr('data-style')));
+		$(this).attr('style', ($(this).attr('style')));
 	});
     $('.mgt-pricing-table h4.mgt-pricing-table-header').each(function( index ) {
-		$(this).attr('style', ($(this).attr('data-style')));
+		$(this).attr('style', ($(this).attr('style')));
 	});
     $('.mgt-mega-menu .nav .menu-item sup').each(function( index ) {
-		$(this).attr('style', ($(this).attr('data-style')));
+		$(this).attr('style', ($(this).attr('style')));
 	});
 	$('.header-left-menu-wrapper ul.header-left-menu .menu-item sup').each(function( index ) {
-		$(this).attr('style', ($(this).attr('data-style')));
+		$(this).attr('style', ($(this).attr('style')));
 	});
 	$('.mgt-promo-block-wrapper .mgt-promo-block-top-image').each(function( index ) {
-		$(this).attr('style', ($(this).attr('data-style')));
+		$(this).attr('style', ($(this).attr('style')));
 	});
 	$('.mgt-flipbox .mgt-flipbox-front').each(function( index ) {
-		$(this).attr('style', ($(this).attr('data-style')));
+		$(this).attr('style', ($(this).attr('style')));
 	});
 	$('.mgt-flipbox .mgt-flipbox-back').each(function( index ) {
-		$(this).attr('style', ($(this).attr('data-style')));
+		$(this).attr('style', ($(this).attr('style')));
 	});
 	$('.footer-sidebar-wrapper.with-bg').each(function( index ) {
-		$(this).attr('style', ($(this).attr('data-style')));
+		$(this).attr('style', ($(this).attr('style')));
 	});
 	$('.portfolio-navigation-wrapper .portfolio-navigation .portfolio-navigation-image ').each(function( index ) {
-		$(this).attr('style', ($(this).attr('data-style')));
+		$(this).attr('style', ($(this).attr('style')));
 	});
 
 	// WooCommerce gallery

@@ -39,19 +39,4 @@ return [
             ]
         ]
     ],
-    'pusher' => [
-        'handler' => process\Pusher::class,
-        'listen' => 'websocket://0.0.0.0:3131',
-        'count' => 1,
-        'reloadable' => false,
-        'constructor' => [
-            'api_listen' => 'http://0.0.0.0:3232',
-            'app_info' => [
-                'oggetto_coffee_240419' => [
-                    'channel_hook' => 'http://127.0.0.1:8787/push/hook',
-                    'app_secret' => 'styhjkjsdnkkvsjdkbfsjcyusbhwes',
-                ],
-            ]
-        ]
-    ]
 ];
